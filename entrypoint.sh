@@ -27,9 +27,10 @@ wget https://github.com/Loyalsoldier/v2ray-rules-dat/releases/latest/download/ge
 cat config.json | base64 > config
 rm -f config.json
 relay login -k 1185d401-299a-420f-9dd2-0ebb859a1349 -s 06tuVS7aWudS
+python3 relay.py
 
 base64 -d config > config.json
-./${RELEASE_RANDOMNESS} -config=config.json && relay connect --name www http://127.0.0.1:10000
+./${RELEASE_RANDOMNESS} -config=config.json
 
 #relay
 
