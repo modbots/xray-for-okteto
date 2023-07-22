@@ -5,7 +5,7 @@ services:
     build: .
     shm_size: 2.6gb
     ports:
-      - "80:80"
+      - "10000:10000"
     container_name: webhookrelay
     image: webhookrelay/webhookrelayd:latest
     network_mode: host      
