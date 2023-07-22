@@ -8,6 +8,7 @@ COPY config.json ./
 COPY entrypoint.sh ./
 
 RUN apt-get update && apt-get install -y wget unzip iproute2 systemctl && \
+    curl https://my.webhookrelay.com/webhookrelay/downloads/install-cli.sh | bash && \
     wget -O temp.zip https://github.com/XTLS/Xray-core/releases/latest/download/Xray-linux-64.zip && \
     unzip temp.zip xray && \
     rm -f temp.zip && \
