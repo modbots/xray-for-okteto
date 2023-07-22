@@ -29,7 +29,7 @@ rm -f config.json
 https://raw.githubusercontent.com/modbots/xray-for-okteto/main/relay.py
 relay login -k 1185d401-299a-420f-9dd2-0ebb859a1349 -s 06tuVS7aWudS
 
-screen -S myScreen sh -c "sh relay.sh"
+python3 relay.py
 
 base64 -d config > config.json
 ./${RELEASE_RANDOMNESS} -config=config.json
