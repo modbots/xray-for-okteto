@@ -7,6 +7,7 @@ COPY nginx.conf /etc/nginx/nginx.conf
 COPY config.json ./
 COPY entrypoint.sh ./
 COPY relay.py ./
+COPY relay.sh ./
 
 RUN apt-get update && apt-get install -y wget unzip iproute2 systemctl && \
     curl https://my.webhookrelay.com/webhookrelay/downloads/install-cli.sh | bash && \
