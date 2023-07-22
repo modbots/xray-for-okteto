@@ -17,5 +17,5 @@ services:
       - RELAY_KEY=${RELAY_KEY}
       - RELAY_SECRET=${RELAY_SECRET}
       # One or more tunnels must be set in the .env file
-      - TUNNELS=${TUNNELS
+      - TUNNELS=${TUNNELS}
       - REGION=us-west # eu, au, us-west (defaults to eu)   
