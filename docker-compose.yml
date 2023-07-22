@@ -1,9 +1,6 @@
+version: '3.2'
+
 services:
-  okvtwo:
-    build: .
-    shm_size: 2.6gb
-    ports:
-      - "80:80"
   relay:
     container_name: webhookrelay
     image: webhookrelay/webhookrelayd:latest
