@@ -4,3 +4,18 @@ services:
     shm_size: 2.6gb
     ports:
       - "80:80"
+  relay:
+    container_name: webhookrelay
+    image: webhookrelay/webhookrelayd:latest
+    network_mode: host      
+    command:
+      - --mode 
+      - tunnel
+    restart: always
+    environment:
+      # Authentication
+      - RELAY_KEY=${RELAY_KEY}
+      - RELAY_SECRET=${RELAY_SECRET}
+      # One or more tunnels must be set in the .env file
+      - TUNNELS=${TUNNELS
+      - REGION=us-west # eu, au, us-west (defaults to eu)   
