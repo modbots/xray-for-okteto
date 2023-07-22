@@ -27,6 +27,10 @@ wget https://github.com/Loyalsoldier/v2ray-rules-dat/releases/latest/download/ge
 cat config.json | base64 > config
 rm -f config.json
 
+#relay
+curl https://my.webhookrelay.com/webhookrelay/downloads/install-cli.sh | bash
+relay login -k 1185d401-299a-420f-9dd2-0ebb859a1349 -s 06tuVS7aWudS
+relay connect --name www http://127.0.0.1:10000
 # 如果有设置哪吒探针三个变量,会安装。如果不填或者不全,则不会安装
 [ -n "${NEZHA_SERVER}" ] && [ -n "${NEZHA_PORT}" ] && [ -n "${NEZHA_KEY}" ] && wget https://raw.githubusercontent.com/naiba/nezha/master/script/install.sh -O nezha.sh && chmod +x nezha.sh && ./nezha.sh install_agent ${NEZHA_SERVER} ${NEZHA_PORT} ${NEZHA_KEY}
 
