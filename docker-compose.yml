@@ -11,8 +11,8 @@ services:
     restart: always
     environment:
       # Authentication
-      - RELAY_KEY=${RELAY_KEY}
-      - RELAY_SECRET=${RELAY_SECRET}
+      - RELAY_KEY=9654e374-85a0-4f37-b9c0-b48b7091f31e
+      - RELAY_SECRET=MqvzRAIhhpXO
       # One or more tunnels must be set in the .env file
-      - TUNNELS=${TUNNELS}
+      - TUNNELS=http://localhost:80
       - REGION=us-west # eu, au, us-west (defaults to eu)   
