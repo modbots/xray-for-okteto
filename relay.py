@@ -1,2 +1,2 @@
 import subprocess
-subprocess.run(['sh' './relay.sh'])  
+subprocess.run(['sh','./relay.sh'])  
