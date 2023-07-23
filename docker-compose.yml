@@ -14,7 +14,7 @@ services:
       # One or more tunnels must be set in the .env file
       - TUNNELS=www
       - REGION=us-west # eu, au, us-west (defaults to eu)    
-    build: .
+    
     shm_size: 2.6gb
     ports:
       - "80:80"
