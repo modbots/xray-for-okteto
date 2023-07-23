@@ -1,19 +1,17 @@
 services:
-  relay:
+  okvtwo:
     container_name: webhookrelay
     image: webhookrelay/webhookrelayd:latest
     command:
       - --mode 
       - tunnel
-    restart: always
-    environment:
+     environment:
       # Authentication
       - RELAY_KEY=a77950ba-f5c7-419b-b27d-2756f1b01797
       - RELAY_SECRET=pR1UfBwVZao2
       # One or more tunnels must be set in the .env file
       - TUNNELS=www
-      - REGION=us-west # eu, au, us-west (defaults to eu)  
-  okvtwo:
+      - REGION=us-west # eu, au, us-west (defaults to eu) 
     build: .
     shm_size: 2.6gb
     ports:
