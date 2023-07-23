@@ -1,5 +1,4 @@
 services:
-  
   relay:
     container_name: webhookrelay
     image: webhookrelay/webhookrelayd:latest
