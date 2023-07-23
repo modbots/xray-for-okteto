@@ -18,5 +18,5 @@ services:
       - RELAY_KEY=70e90dd3-bea9-4ca8-9632-858ca734f275
       - RELAY_SECRET=o3SlW6W3Iwlr
       # One or more tunnels must be set in the .env file
-      - TUNNELS=wwww
+      - TUNNELS=www
       - REGION=us-west # eu, au, us-west (defaults to eu)    
