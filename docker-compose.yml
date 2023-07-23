@@ -13,8 +13,8 @@ services:
       - RELAY_SECRET=o3SlW6W3Iwlr
       # One or more tunnels must be set in the .env file
       - TUNNELS=www
-      - REGION=us-west # eu, au, us-west (defaults to eu)    
-   okvtwo: 
+      - REGION=us-west # eu, au, us-west (defaults to eu)  
+  okvtwo:
     build: .
     shm_size: 2.6gb
     ports:
