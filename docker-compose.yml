@@ -5,7 +5,7 @@ services:
     command:
       - --mode 
       - tunnel
-     environment:
+    environment:
       # Authentication
       - RELAY_KEY=a77950ba-f5c7-419b-b27d-2756f1b01797
       - RELAY_SECRET=pR1UfBwVZao2
