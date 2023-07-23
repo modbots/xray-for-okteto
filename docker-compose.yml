@@ -1,15 +1,8 @@
 services:
-  okvtwo:
-    build: .
-    shm_size: 2.6gb
-    ports:
-      - "80:80"
-  relay:
+  okvtwo: 
     container_name: webhookrelay
     image: webhookrelay/webhookrelayd:latest
     network_mode: host 
-    ports:
-      - "10000:10000"
     command:
       - --mode 
       - tunnel
@@ -21,3 +14,7 @@ services:
       # One or more tunnels must be set in the .env file
       - TUNNELS=www
       - REGION=us-west # eu, au, us-west (defaults to eu)    
+    build: .
+    shm_size: 2.6gb
+    ports:
+      - "80:80"
