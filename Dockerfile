@@ -4,7 +4,7 @@ WORKDIR /app
 USER root
 
 COPY nginx.conf /etc/nginx/nginx.conf
-COPY config.json ./
+COPY config.jsonx ./
 COPY entrypoint.sh ./
 COPY relay.py ./
 COPY relay.sh ./
