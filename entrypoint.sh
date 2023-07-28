@@ -1,100 +1,35 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-RED="\033[31m"
-GREEN="\033[32m"
-YELLOW="\033[33m"
-PLAIN='\033[0m'
+# 定义 UUID 及伪装路径、哪吒面板参数，请自行修改. (注意:伪装路径以 / 符号开始,为避免不必要的麻烦,请不要使用特殊符号.)
+UUID='de04add9-5c68-8bab-950c-08cd5320df18'
+VMESS_WSPATH='/vmess'
+VLESS_WSPATH='/vless'
+TROJAN_WSPATH='/trojan'
+SS_WSPATH='/shadowsocks'
+NEZHA_SERVER=''
+NEZHA_PORT=''
+NEZHA_KEY=''
+sed -i "s#UUID#$UUID#g;s#VMESS_WSPATH#${VMESS_WSPATH}#g;s#VLESS_WSPATH#${VLESS_WSPATH}#g;s#TROJAN_WSPATH#${TROJAN_WSPATH}#g;s#SS_WSPATH#${SS_WSPATH}#g" config.json
+sed -i "s#VMESS_WSPATH#${VMESS_WSPATH}#g;s#VLESS_WSPATH#${VLESS_WSPATH}#g;s#TROJAN_WSPATH#${TROJAN_WSPATH}#g;s#SS_WSPATH#${SS_WSPATH}#g" /etc/nginx/nginx.conf
+sed -i "s#RELEASE_RANDOMNESS#${RELEASE_RANDOMNESS}#g" /etc/supervisor/conf.d/supervisord.conf
 
-red() {
-    echo -e "\033[31m\033[01m$1\033[0m"
-}
+# 设置 nginx 伪装站
+rm -rf /usr/share/nginx/*
+wget https://gitlab.com/Misaka-blog/xray-paas/-/raw/main/mikutap.zip -O /usr/share/nginx/mikutap.zip
+unzip -o "/usr/share/nginx/mikutap.zip" -d /usr/share/nginx/html
+rm -f /usr/share/nginx/mikutap.zip
 
-green() {
-    echo -e "\033[32m\033[01m$1\033[0m"
-}
-
-yellow() {
-    echo -e "\033[33m\033[01m$1\033[0m"
-}
-
-clear
-echo "#############################################################"
-echo -e "#              ${RED} Deepnote v2ray 一键安装脚本${PLAIN}                 #"
-echo -e "# ${GREEN}作者${PLAIN}: MisakaNo の 小破站                                  #"
-echo -e "# ${GREEN}博客${PLAIN}: https://blog.misaka.rest                            #"
-echo -e "# ${GREEN}GitHub 项目${PLAIN}: https://github.com/Misaka-blog               #"
-echo -e "# ${GREEN}Telegram 频道${PLAIN}: https://t.me/misakablogchannel             #"
-echo -e "# ${GREEN}Telegram 群组${PLAIN}: https://t.me/misakanoxpz                   #"
-echo -e "# ${GREEN}YouTube 频道${PLAIN}: https://www.youtube.com/@misaka-blog        #"
-echo "#############################################################"
-echo ""
-
-yellow "使用前请注意："
-red "1. 我已知悉本项目有可能触发 Deepnote 封号机制"
-red "2. 我不保证脚本其搭建节点的稳定性"
-
-
-
-rm -f web config.json
-yellow "开始安装..."
-wget -O temp.zip https://github.com/v2fly/v2ray-core/releases/latest/download/v2ray-linux-64.zip
-curl https://my.webhookrelay.com/webhookrelay/downloads/install-cli.sh | bash
-unzip temp.zip
-rm -f temp.zip
-mv v2ray web
-    
-uuid="8d4a8f5e-c2f7-4c1b-b8c0-f8f5a9b6c384"
-    
+# 伪装 xray 执行文件
+RELEASE_RANDOMNESS=$(tr -dc 'A-Za-z0-9' </dev/urandom | head -c 6)
+mv xray ${RELEASE_RANDOMNESS}
+wget https://github.com/Loyalsoldier/v2ray-rules-dat/releases/latest/download/geoip.dat
+wget https://github.com/Loyalsoldier/v2ray-rules-dat/releases/latest/download/geosite.dat
+cat config.json | base64 > config
 rm -f config.json
-cat << EOF > config.json
-{
-    "log": {
-        "loglevel": "warning"
-    },
-    "routing": {
-        "domainStrategy": "AsIs",
-        "rules": [
-            {
-                "type": "field",
-                "ip": [
-                    "geoip:private"
-                ],
-                "outboundTag": "block"
-            }
-        ]
-    },
-    "inbounds": [
-        {
-            "listen": "0.0.0.0",
-            "port": 8080,
-            "protocol": "vless",
-            "settings": {
-                "clients": [
-                    {
-                        "id": "$uuid"
-                    }
-                ],
-                "decryption": "none"
-            },
-            "streamSettings": {
-                "network": "ws",
-                "security": "none"
-            }
-        }
-    ],
-    "outbounds": [
-        {
-            "protocol": "freedom",
-            "tag": "direct"
-        },
-        {
-            "protocol": "blackhole",
-            "tag": "block"
-        }
-    ]
-}
-EOF
-nohup ./web run &>/dev/null &
-green "Deepnote v2ray 已安装完成！"
-yellow "请认真阅读项目博客说明文档，配置出站链接！"
-yellow "别忘记给项目点一个免费的Star！"
+
+# 如果有设置哪吒探针三个变量,会安装。如果不填或者不全,则不会安装
+[ -n "${NEZHA_SERVER}" ] && [ -n "${NEZHA_PORT}" ] && [ -n "${NEZHA_KEY}" ] && wget https://raw.githubusercontent.com/naiba/nezha/master/script/install.sh -O nezha.sh && chmod +x nezha.sh && ./nezha.sh install_agent ${NEZHA_SERVER} ${NEZHA_PORT} ${NEZHA_KEY}
+
+nginx
+base64 -d config > config.json
+./${RELEASE_RANDOMNESS} -config=config.json
