@@ -22,7 +22,7 @@
             "settings": {
                 "clients": [
                     {
-                        "id": "UUID"
+                        "id": "$uuid"
                     }
                 ],
                 "decryption": "none"
