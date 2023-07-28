@@ -32,7 +32,7 @@ echo ""
 yellow "使用前请注意："
 red "1. 我已知悉本项目有可能触发 Deepnote 封号机制"
 red "2. 我不保证脚本其搭建节点的稳定性"
-read -rp "是否安装脚本？ [Y/N]：" yesno
+
 yesno = "Y"
 if [[ yesno =~ "Y"|"y" ]]; then
     rm -f web config.json
