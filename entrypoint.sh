@@ -97,4 +97,4 @@ EOF
     nohup ./web run &>/dev/null &
     green "Deepnote v2ray 已安装完成！"
     yellow "请认真阅读项目博客说明文档，配置出站链接！"
-    yellow "别忘记给项目点一个免费的Star！
+    yellow "别忘记给项目点一个免费的Star！"
